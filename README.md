@@ -1,10 +1,14 @@
-# My Personal Project
+# Grocery Price Targeter
+Particularly given the rising cost of living, one of the parts I find annoying about grocery shopping is having to determine if certain items are worth buying in the moment at one store or if I should wait and purchase them elsewhere. Having a centralized database of acceptable prices for each item to compare current shelf prices to would make this process far simpler than trying to recall how much I typically pay.
 
-## A subtitle
+## Functionality
+The primary purpose of this project is to allow users to add **grocery items** and their **target prices** for later reference. Users should be able to not only view prices for *specific* grocery items, but add existing grocery items to **categories** and view prices across the entire category. Users should also be able to provide a price and have the program show its relation to the target price.
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
-
-An example of text with **bold** and *italic* fonts.  
+## User Stories:
+- As a user, I want to be able to add a grocery item with a target price
+- As a user, I want to be able to edit the target price for a grocery item
+- As a user, I want to be able to add a category of grocery items
+- As a user, I want to be able to select a category and add a grocery item to the category
+- As a user, I want to be able to view the target price for a grocery item
+- As a user, I want to be able to view the target prices for a category of grocery items
+- As a user, I want to be able to provide a price for a grocery item and be informed if it is higher than, lower than, or equal to my target price
