@@ -169,31 +169,39 @@ public class PricesApp {
      * in ArrayList groceries
      */
     private void comEditGrocery() {
-        System.out.print("\nEnter name of grocery to edit: ");
-        String name = in.next();
-        Grocery g = groceryHandling(name);
-        System.out.print("Enter new price for " + g.getName() + ": ");
-        String price = in.next();
-        g.editPrice(priceHandling(price));
-        System.out.println("Successfully set \"" + g.getName() + "\" to $" + g.getPrice() + " :D");
+        if (groceries.isEmpty()) {
+            System.out.println("\nNo groceries to edit :/");
+        } else {
+            System.out.print("\nEnter name of grocery to edit: ");
+            String name = in.next();
+            Grocery g = groceryHandling(name);
+            System.out.print("Enter new price for " + g.getName() + ": ");
+            String price = in.next();
+            g.editPrice(priceHandling(price));
+            System.out.println("Successfully set \"" + g.getName() + "\" to $" + g.getPrice() + " :D");
+        }
     }
 
     /*
      * EFFECTS: goes through grocery price comparison process
      */
     private void comCompareGrocery() {
-        System.out.print("\nEnter name of grocery to compare to: ");
-        String name = in.next();
-        Grocery g = groceryHandling(name);
-        System.out.print("Enter comparison price for " + g.getName() + ": ");
-        String price = in.next();
-        int comp = g.comparePrice(priceHandling(price));
-        if (comp == 1) {
-            System.out.println(g.getName() + " costs less than $" + price);
-        } else if (comp == 0) {
-            System.out.println(g.getName() + " costs exactly $" + price);
+        if (groceries.isEmpty()) {
+            System.out.println("\nNo groceries to compare to :/");
         } else {
-            System.out.println(g.getName() + " costs more than $" + price);
+            System.out.print("\nEnter name of grocery to compare to: ");
+            String name = in.next();
+            Grocery g = groceryHandling(name);
+            System.out.print("Enter comparison price for " + g.getName() + ": ");
+            String price = in.next();
+            int comp = g.comparePrice(priceHandling(price));
+            if (comp == 1) {
+                System.out.println(g.getName() + " costs less than $" + price);
+            } else if (comp == 0) {
+                System.out.println(g.getName() + " costs exactly $" + price);
+            } else {
+                System.out.println(g.getName() + " costs more than $" + price);
+            }
         }
     }
 
@@ -213,14 +221,22 @@ public class PricesApp {
      * grocery to specified category
      */
     private void comAddGrocery() {
-        System.out.print("\nEnter name of grocery to add: ");
-        String groceryName = in.next();
-        Grocery g = groceryHandling(groceryName);
-        System.out.print("Enter name of category to add \"" + g.getName() + "\" to: ");
-        String catName = in.next();
-        Category c = categoryHandling(catName);
-        c.addItem(g);
-        System.out.println("Succesfully added \"" + c.returnGroceries().get(c.returnGroceries().size() - 1).getName() + "\" to " + c.getName() + " :D");
+        if (groceries.isEmpty()) {
+            System.out.println("\nNo groceries to add :/");
+        } else if (categories.isEmpty()) {
+            System.out.println("\nNo categories to add to :/");
+        } else {
+            System.out.print("\nEnter name of grocery to add: ");
+            String groceryName = in.next();
+            Grocery g = groceryHandling(groceryName);
+            System.out.print("Enter name of category to add \"" + g.getName() + "\" to: ");
+            String catName = in.next();
+            Category c = categoryHandling(catName);
+            c.addItem(g);
+            System.out
+                    .println("Succesfully added \"" + c.returnGroceries().get(c.returnGroceries().size() - 1).getName()
+                            + "\" to " + c.getName() + " :D");
+        }
     }
 
     /*
@@ -254,9 +270,13 @@ public class PricesApp {
      * and prices in category
      */
     private void comListCategoryGroceries() {
-        System.out.print("\nEnter name of category to list: ");
-        String name = in.next();
-        Category c = categoryHandling(name);
-        System.out.println(c.toString());
+        if (categories.isEmpty()) {
+            System.out.println("\nNo categories to add to :/");
+        } else {
+            System.out.print("\nEnter name of category to list: ");
+            String name = in.next();
+            Category c = categoryHandling(name);
+            System.out.println(c.toString());
+        }
     }
 }
