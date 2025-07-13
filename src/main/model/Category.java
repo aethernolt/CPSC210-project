@@ -8,10 +8,11 @@ public class Category {
 
     /*
      * REQUIRES: name is unique from all previously provided category names
-     * EFFECTS: sets name to given name
+     * EFFECTS: sets name to given name and initializes groceries as an empty list
      */
     public Category(String name) {
-
+        this.name = name;
+        groceries = new ArrayList<Grocery>();
     }
 
     /*
@@ -33,14 +34,24 @@ public class Category {
      * EFFECTS: adds a Grocery object to ArrayList groceries
      */
     public void addItem(Grocery g) {
-        
+        groceries.add(g);
     }
 
     /*
-     * EFFECTS: provides the name of the category followed by a string representation of all Grocery objects and their
+     * EFFECTS: provides the name of the category followed by a string
+     * representation of all Grocery objects and their
      * prices within the category
      */
     public String toString() {
-        return "";
+        String out = "category: " + name + "; items:";
+        int x = 0;
+        for (Grocery g : groceries) {
+            if (x == 0) {
+                out += (" " + g.toString());
+            } else {
+                out += (", " + g.toString());
+            }
+        }
+        return out;
     }
 }

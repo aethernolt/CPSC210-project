@@ -3,15 +3,17 @@ package model;
 import java.math.BigDecimal;
 
 public class Grocery {
-    private BigDecimal price;
     private String name;
+    private BigDecimal price;
 
     /*
-     * REQUIRES: price > 0, name is unique from all previously provided grocery names
+     * REQUIRES: price > 0, name is unique from all previously provided grocery
+     * names
      * EFFECTS: sets name to given name and price to given price
      */
-    public Grocery(BigDecimal price, String name) {
-        
+    public Grocery(String name, BigDecimal price) {
+        this.name = name;
+        this.price = price;
     }
 
     /*
@@ -33,22 +35,22 @@ public class Grocery {
      * MODIFIES: this
      * EFFECTS: changes price to newPrice
      */
-    public BigDecimal editPrice(BigDecimal newPrice) {
-        return null;
+    public void editPrice(BigDecimal newPrice) {
+        price = newPrice;
     }
 
     /*
      * EFFECTS: returns a string representation of the format "name ($price)"
      */
     public String toString() {
-        return "";
+        return name + " ($" + price + ")";
     }
 
     /*
      * REQUIRES: x > 0
-     * EFFECTS: returns 0 if x < price, 1 if x = price, 2 if x > price
+     * EFFECTS: returns -1 if x < price, 0 if x = price, 1 if x > price
      */
     public int comparePrice(BigDecimal x) {
-        return 0;
+        return x.compareTo(price);
     }
 }
