@@ -16,10 +16,10 @@ public class CategoryTest {
     @BeforeEach
     void runBefore() {
         BigDecimal priceA = new BigDecimal("1.50");
-        Grocery testApple = new Grocery("1 kg apples", priceA);
+        testApple = new Grocery("1 kg apples", priceA);
         BigDecimal priceB = new BigDecimal("2.00");
-        Grocery testBanana = new Grocery("bunch of bananas", priceB);
-        Category testCategory = new Category("fruit");
+        testBanana = new Grocery("bunch of bananas", priceB);
+        testCategory = new Category("fruit");
     }
 
     @Test

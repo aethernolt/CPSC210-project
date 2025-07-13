@@ -44,10 +44,11 @@ public class Category {
      */
     public String toString() {
         String out = "category: " + name + "; items:";
-        int x = 0;
+        Boolean x = true;
         for (Grocery g : groceries) {
-            if (x == 0) {
+            if (x) {
                 out += (" " + g.toString());
+                x = false;
             } else {
                 out += (", " + g.toString());
             }
