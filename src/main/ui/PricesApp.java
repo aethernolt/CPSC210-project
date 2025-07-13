@@ -141,16 +141,15 @@ public class PricesApp {
         Grocery toEdit = null;
         while (r) {
             for (Grocery g : groceries) {
-                if (name == g.getName()) {
-                    System.out.println("made it");
+                if (name.equals(g.getName())) {
                     toEdit = g;
-                    break;
-                } else {
-                    System.out.println("sad");
+                    r = false;
                 }
             }
-            System.out.print("Grocery not found, please try again: ");
-            name = in.next();
+            if (r) {
+                System.out.print("Grocery not found, please try again: ");
+                name = in.next();
+            }
         }
         System.out.print("Enter new price for " + toEdit.getName() + ": ");
         String price = in.next();
