@@ -134,6 +134,22 @@ public class PricesApp {
     }
 
     /*
+     * EFFECTS: continues to prompt user until user returns a string matching the
+     * name of an existing category, then returns matching category
+     */
+    private Category categoryHandling(String name) {
+        while (true) {
+            for (Category c : categories) {
+                if (name.equals(c.getName())) {
+                    return c;
+                }
+            }
+            System.out.print("Category not found, please try again: ");
+            name = in.next();
+        }
+    }
+
+    /*
      * MODIFIES: this
      * EFFECTS: goes through new grocery creation process and adds created grocery
      * to ArrayList groceries
@@ -186,7 +202,10 @@ public class PricesApp {
      * to ArrayList categories
      */
     private void comNewCategory() {
-
+        System.out.print("\nEnter name of category: ");
+        String name = in.next();
+        categories.add(new Category(name));
+        System.out.println("Successfully added \"" + categories.get(categories.size() - 1).getName() + "\" :D");
     }
 
     /*
@@ -194,7 +213,14 @@ public class PricesApp {
      * grocery to specified category
      */
     private void comAddGrocery() {
-
+        System.out.print("\nEnter name of grocery to add: ");
+        String groceryName = in.next();
+        Grocery g = groceryHandling(groceryName);
+        System.out.print("Enter name of category to add \"" + g.getName() + "\" to: ");
+        String catName = in.next();
+        Category c = categoryHandling(catName);
+        c.addItem(g);
+        System.out.println("Succesfully added \"" + c.returnGroceries().get(c.returnGroceries().size() - 1).getName() + "\" to " + c.getName() + " :D");
     }
 
     /*
@@ -228,6 +254,9 @@ public class PricesApp {
      * and prices in category
      */
     private void comListCategoryGroceries() {
-
+        System.out.print("\nEnter name of category to list: ");
+        String name = in.next();
+        Category c = categoryHandling(name);
+        System.out.println(c.toString());
     }
 }
