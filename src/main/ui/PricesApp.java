@@ -118,8 +118,25 @@ public class PricesApp {
     }
 
     /*
+     * EFFECTS: continues to prompt user until user returns a string matching the
+     * name of an existing grocery, then returns matching grocery
+     */
+    private Grocery groceryHandling(String name) {
+        while (true) {
+            for (Grocery g : groceries) {
+                if (name.equals(g.getName())) {
+                    return g;
+                }
+            }
+            System.out.print("Grocery not found, please try again: ");
+            name = in.next();
+        }
+    }
+
+    /*
      * MODIFIES: this
-     * EFFECTS: goes through new grocery creation process
+     * EFFECTS: goes through new grocery creation process and adds created grocery
+     * to ArrayList groceries
      */
     private void comNewGrocery() {
         System.out.print("\nEnter name of grocery: ");
@@ -132,46 +149,49 @@ public class PricesApp {
 
     /*
      * MODIFIES: this
-     * EFFECTS: goes through grocery editing process
+     * EFFECTS: goes through grocery editing process and edits the grocery selected
+     * in ArrayList groceries
      */
     private void comEditGrocery() {
         System.out.print("\nEnter name of grocery to edit: ");
         String name = in.next();
-        Boolean r = true;
-        Grocery toEdit = null;
-        while (r) {
-            for (Grocery g : groceries) {
-                if (name.equals(g.getName())) {
-                    toEdit = g;
-                    r = false;
-                }
-            }
-            if (r) {
-                System.out.print("Grocery not found, please try again: ");
-                name = in.next();
-            }
-        }
-        System.out.print("Enter new price for " + toEdit.getName() + ": ");
+        Grocery g = groceryHandling(name);
+        System.out.print("Enter new price for " + g.getName() + ": ");
         String price = in.next();
-        toEdit.editPrice(priceHandling(price));
+        g.editPrice(priceHandling(price));
+        System.out.println("Successfully set \"" + g.getName() + "\" to $" + g.getPrice() + " :D");
     }
 
     /*
      * EFFECTS: goes through grocery price comparison process
      */
     private void comCompareGrocery() {
-
+        System.out.print("\nEnter name of grocery to compare to: ");
+        String name = in.next();
+        Grocery g = groceryHandling(name);
+        System.out.print("Enter comparison price for " + g.getName() + ": ");
+        String price = in.next();
+        int comp = g.comparePrice(priceHandling(price));
+        if (comp == 1) {
+            System.out.println(g.getName() + " costs less than $" + price);
+        } else if (comp == 0) {
+            System.out.println(g.getName() + " costs exactly $" + price);
+        } else {
+            System.out.println(g.getName() + " costs more than $" + price);
+        }
     }
 
     /*
-     * EFFECTS: goes through new category creation process
+     * EFFECTS: goes through new category creation process and adds created category
+     * to ArrayList categories
      */
     private void comNewCategory() {
 
     }
 
     /*
-     * EFFECTS: goes through adding grocery to category process
+     * EFFECTS: goes through adding grocery to category process and adds specified
+     * grocery to specified category
      */
     private void comAddGrocery() {
 
