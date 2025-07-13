@@ -2,9 +2,10 @@ package model;
 
 import java.math.BigDecimal;
 
+// Represents a grocery with a name and price in dollars
 public class Grocery {
-    private String name;
-    private BigDecimal price;
+    private String name; // name
+    private BigDecimal price; // price in dollars
 
     /*
      * REQUIRES: price > 0, name is unique from all previously provided grocery

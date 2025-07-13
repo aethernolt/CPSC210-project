@@ -2,9 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
+// Represents a category of grocery objects with a name and ArrayList containing said groceries
 public class Category {
-    private String name;
-    private ArrayList<Grocery> groceries;
+    private String name; // name
+    private ArrayList<Grocery> groceries; // list of groceries in category
 
     /*
      * REQUIRES: name is unique from all previously provided category names
