@@ -206,6 +206,7 @@ public class PricesApp {
     }
 
     /*
+     * MODIFIES: this
      * EFFECTS: goes through new category creation process and adds created category
      * to ArrayList categories
      */
@@ -217,6 +218,7 @@ public class PricesApp {
     }
 
     /*
+     * MODIFIES: this
      * EFFECTS: goes through adding grocery to category process and adds specified
      * grocery to specified category
      */

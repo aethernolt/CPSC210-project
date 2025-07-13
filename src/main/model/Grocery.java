@@ -17,16 +17,10 @@ public class Grocery {
         this.price = price;
     }
 
-    /*
-     * EFFECTS: returns price
-     */
     public BigDecimal getPrice() {
         return price;
     }
 
-    /*
-     * EFFECTS: returns name
-     */
     public String getName() {
         return name;
     }

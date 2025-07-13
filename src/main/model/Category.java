@@ -16,16 +16,10 @@ public class Category {
         groceries = new ArrayList<Grocery>();
     }
 
-    /*
-     * EFFECTS: returns name
-     */
     public String getName() {
         return name;
     }
 
-    /*
-     * EFFECTS: returns list of Grocery objects
-     */
     public ArrayList<Grocery> returnGroceries() {
         return groceries;
     }
