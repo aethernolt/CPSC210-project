@@ -40,6 +40,7 @@ public class PricesApp {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
+                checkSaved();
                 live = false;
             } else {
                 doCommand(command);
@@ -77,6 +78,37 @@ public class PricesApp {
         } else {
             System.out.println("Invalid command.");
         }
+    }
+
+    /*
+     * EFFECTS: checks if user has saved their data before quitting, prompts to if
+     * not
+     */
+    private void checkSaved() {
+        ArrayList<Grocery> groceriesC = new ArrayList<Grocery>();
+        ArrayList<Category> categoriesC = new ArrayList<Category>();
+        try {
+            groceriesC = reader.readGroceries();
+            categoriesC = reader.readCategories();
+            if (!groceriesC.equals(groceries) || !categoriesC.equals(categories)) {
+                System.out.println("You have not saved your data. Would you like to? (Y/N)");
+                String command = in.next();
+                Boolean cont = true;
+                while (cont) {
+                    if (command.equals("Y")) {
+                        comSave();
+                        cont = false;
+                    } else if (command.equals("N")) {
+                        cont = false;
+                    } else {
+                        System.out.println("Please enter Y/N");
+                        command = in.next();
+                    }
+                }
+            }
+        } catch (IOException e) {
+        }
+
     }
 
     /*
