@@ -31,7 +31,7 @@ public class JsonWriter {
     // EFFECTS: writes JSON representation of categories and groceries to file
     public void write(ArrayList<Category> categories, ArrayList<Grocery> groceries) {
         JSONObject json = new JSONObject();
-        
+
         JSONArray jsonArrayG = new JSONArray();
         for (Grocery g : groceries) {
             jsonArrayG.put(g.toJson());

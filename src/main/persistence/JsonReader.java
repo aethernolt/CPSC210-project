@@ -48,7 +48,7 @@ public class JsonReader {
         }
 
         return contentBuilder.toString();
-    }  
+    }
 
     // EFFECTS: parses groceries from JSON object and returns it
     private ArrayList<Grocery> parseGroceries(JSONObject jsonObject) {
@@ -97,7 +97,7 @@ public class JsonReader {
             JSONObject g = (JSONObject) j;
             groceries.add(parsedGrocery(g));
         }
-        
+
         Category c = new Category(name);
         for (Grocery g : groceries) {
             c.addItem(g);

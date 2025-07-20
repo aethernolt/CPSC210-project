@@ -11,7 +11,8 @@ public class Grocery implements Writable {
     private BigDecimal price; // price in dollars
 
     /*
-     * REQUIRES: price > 0 and is valid dollar format, name is unique from all previously provided grocery
+     * REQUIRES: price > 0 and is valid dollar format, name is unique from all
+     * previously provided grocery
      * names
      * EFFECTS: sets name to given name and price to given price
      */
