@@ -11,7 +11,7 @@ public class Grocery implements Writable {
     private BigDecimal price; // price in dollars
 
     /*
-     * REQUIRES: price > 0, name is unique from all previously provided grocery
+     * REQUIRES: price > 0 and is valid dollar format, name is unique from all previously provided grocery
      * names
      * EFFECTS: sets name to given name and price to given price
      */
@@ -29,7 +29,7 @@ public class Grocery implements Writable {
     }
 
     /*
-     * REQUIRES: newPrice > 0
+     * REQUIRES: newPrice > 0 and is valid dollar format
      * MODIFIES: this
      * EFFECTS: changes price to newPrice
      */
@@ -56,8 +56,8 @@ public class Grocery implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("grocery", name);
-        json.put("price", price);
+        json.put("name", name);
+        json.put("price", String.valueOf(price));
         return json;
     }
 }

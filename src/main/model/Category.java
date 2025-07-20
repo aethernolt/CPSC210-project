@@ -5,7 +5,6 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 // Represents a category of grocery objects with a name and ArrayList containing said groceries
 public class Category implements Writable {
@@ -61,18 +60,18 @@ public class Category implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("category", name);
-        json.put("groceries", groceriesNamedArray());
+        json.put("groceries", groceriesToArray());
         return json;
     }
 
-    // EFFECTS: returns list of groceries names in self as an array of strings 
-    private ArrayList<String> groceriesNamedArray() {
-        List<String> out = new ArrayList<String>();
+    // EFFECTS: returns list of groceries as a JSON array
+    private JSONArray groceriesToArray() {
+        JSONArray jsonArray = new JSONArray();
 
         for (Grocery g : groceries) {
-            out.add(g.getName());
+            jsonArray.put(g.toJson());
         }
 
-        return out;
+        return jsonArray;
     }
 }

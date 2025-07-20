@@ -1,16 +1,22 @@
 package ui;
 
 import model.*;
+import persistence.*;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 
 // Grocery price logging, categorizing, and consulting application
 public class PricesApp {
+    private static final String JSON_SAVE = "./data/save_data.json";
     private Scanner in;
     private ArrayList<Grocery> groceries;
     private ArrayList<Category> categories;
+    private JsonWriter writer;
+    private JsonReader reader;
 
     // EFFECTS: runs the prices application
     public PricesApp() {
@@ -64,6 +70,10 @@ public class PricesApp {
             comListCategory();
         } else if (command.equals("listc g")) {
             comListCategoryGroceries();
+        } else if (command.equals("save")) {
+            comSave();
+        } else if (command.equals("load")) {
+            comLoad();
         } else {
             System.out.println("Invalid command.");
         }
@@ -78,6 +88,8 @@ public class PricesApp {
         categories = new ArrayList<Category>();
         in = new Scanner(System.in);
         in.useDelimiter("\\R");
+        writer = new JsonWriter(JSON_SAVE);
+        reader = new JsonReader(JSON_SAVE);
     }
 
     /*
@@ -93,6 +105,8 @@ public class PricesApp {
         System.out.println("\tlist -> list all groceries (and their prices)");
         System.out.println("\tlistc -> list all categories");
         System.out.println("\tlistc g -> list all groceries (and their prices) in a category");
+        System.out.println("\tsave -> save current grocery data");
+        System.out.println("\tload -> load existing grocery data");
         System.out.println("\tq -> quit");
     }
 
@@ -279,6 +293,34 @@ public class PricesApp {
             String name = in.next();
             Category c = categoryHandling(name);
             System.out.println(c.toString());
+        }
+    }
+
+    /*
+     * EFFECTS: creates a JSON file with current grocery data
+     */
+    private void comSave() {
+        try {
+            writer.open();
+            writer.write(categories, groceries);
+            writer.close();
+            System.out.println("Saved your data to " + JSON_SAVE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_SAVE);
+        }
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: replaces all current data with data from a JSON file
+     */
+    private void comLoad() {
+        try {
+            groceries = reader.readGroceries();
+            categories = reader.readCategories();
+            System.out.println("Loaded  from " + JSON_SAVE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_SAVE);
         }
     }
 }
