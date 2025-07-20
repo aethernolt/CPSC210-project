@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.math.BigDecimal;
 
 // Represents a grocery with a name and price in dollars
-public class Grocery {
+public class Grocery implements Writable {
     private String name; // name
     private BigDecimal price; // price in dollars
 
@@ -47,5 +50,14 @@ public class Grocery {
      */
     public int comparePrice(BigDecimal x) {
         return x.compareTo(price);
+    }
+
+    // EFFECTS: returns self as JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("grocery", name);
+        json.put("price", price);
+        return json;
     }
 }
