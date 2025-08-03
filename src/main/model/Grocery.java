@@ -61,4 +61,9 @@ public class Grocery implements Writable {
         json.put("price", String.valueOf(price));
         return json;
     }
+
+    // EFFECTS: returns true if name and price are the same
+    public Boolean equals(Grocery g) {
+        return g.toString().equals(toString());
+    }
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
+import javax.swing.*;
 
 // Grocery price logging, categorizing, and consulting application
 public class PricesApp {
@@ -48,6 +49,7 @@ public class PricesApp {
         }
 
         System.out.println("\nShutting down :/");
+        System.exit(0);
     }
 
     /*
@@ -85,30 +87,51 @@ public class PricesApp {
      * not
      */
     private void checkSaved() {
-        ArrayList<Grocery> groceriesC = new ArrayList<Grocery>();
-        ArrayList<Category> categoriesC = new ArrayList<Category>();
-        try {
-            groceriesC = reader.readGroceries();
-            categoriesC = reader.readCategories();
-            if (!groceriesC.equals(groceries) || !categoriesC.equals(categories)) {
-                System.out.println("You have not saved your data. Would you like to? (Y/N)");
-                String command = in.next();
-                Boolean cont = true;
-                while (cont) {
-                    if (command.equals("Y")) {
-                        comSave();
-                        cont = false;
-                    } else if (command.equals("N")) {
-                        cont = false;
-                    } else {
-                        System.out.println("Please enter Y/N");
-                        command = in.next();
-                    }
+        if (!savedComp()) {
+            System.out.println("You have not saved your data. Would you like to? (Y/N)");
+            String command = in.next();
+            Boolean cont = true;
+            while (cont) {
+                if (command.equals("Y")) {
+                    comSave();
+                    cont = false;
+                } else if (command.equals("N")) {
+                    cont = false;
+                } else {
+                    System.out.println("Please enter Y/N");
+                    command = in.next();
                 }
             }
+        }
+    }
+
+    /*
+     * EFFECTS: returns if saved file is identical to current state
+     */
+    private Boolean savedComp() {
+        ArrayList<Grocery> groSaved = new ArrayList<Grocery>();
+        ArrayList<Category> catSaved = new ArrayList<Category>();
+
+        try {
+            groSaved = reader.readGroceries();
+            catSaved = reader.readCategories();
         } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_SAVE);
+            return false;
         }
 
+        Boolean out = true;
+
+        if (!(groSaved.size() == groceries.size() && catSaved.size() == categories.size())) {
+            out = false;
+            return out;
+        }
+
+        if (!(groceries.toString().equals(groSaved.toString()) && categories.toString().equals(catSaved.toString()))) {
+            out = false;
+        }
+
+        return out;
     }
 
     /*
@@ -122,6 +145,38 @@ public class PricesApp {
         in.useDelimiter("\\R");
         writer = new JsonWriter(JSON_SAVE);
         reader = new JsonReader(JSON_SAVE);
+        initUI();
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: initializes ui
+     */
+    private void initUI() {
+        JFrame f = new JFrame();
+        f.setSize(500, 600);
+        f.setLayout(null);
+        f.setVisible(true);
+
+        JButton buttonAddG = new JButton("New Grocery");
+        buttonAddG.setBounds(100, 100, 150, 50);
+        f.add(buttonAddG);
+
+        JButton buttonAddC = new JButton("New Category");
+        buttonAddC.setBounds(300, 100, 150, 50);
+        f.add(buttonAddC);
+
+        JButton buttonEditG = new JButton("Edit Grocery");
+        buttonEditG.setBounds(100, 175, 150, 50);
+        f.add(buttonEditG);
+
+        JButton buttonViewG = new JButton("View All Groceries");
+        buttonViewG.setBounds(100, 250, 150, 50);
+        f.add(buttonViewG);
+
+        JButton buttonViewC = new JButton("View All Categories");
+        buttonViewC.setBounds(300, 175, 150, 50);
+        f.add(buttonViewC);
     }
 
     /*
@@ -350,7 +405,7 @@ public class PricesApp {
         try {
             groceries = reader.readGroceries();
             categories = reader.readCategories();
-            System.out.println("Loaded  from " + JSON_SAVE);
+            System.out.println("Loaded from " + JSON_SAVE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_SAVE);
         }
