@@ -15,3 +15,11 @@ The primary purpose of this project (built for CPSC 210 at UBC) is to allow user
 - As a user, I want to be able to save my grocery and category data from a file
 - As a user, I want to be able to load my grocery and category data to a file
 - As a user, I want to be asked if I'd like to save my data when I quit the application
+
+## Instructions for End User:
+
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by clicking the "Add Grocery to Category" button to add a specified grocery to a specified category
+- You can generate the second required action related to the user story "adding multiple Xs to a Y" by clicking the "View Groceries in a Category" button to list all groceries and their prices in a specified category
+- You can locate my visual component by adding either a grocery or category item successfully
+- You can save the state of my application by clicking the save button or clicking yes when quitting and being prompted for having unsaved data
+- You can reload the state of my application by clicking the load button
