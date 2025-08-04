@@ -15,7 +15,7 @@ import java.awt.event.*;
 // Grocery price logging, categorizing, and consulting application
 public class PricesApp {
     private static final String JSON_SAVE = "./data/save_data.json";
-    private JFrame f;
+    private JFrame frame;
     private Scanner in;
     private ArrayList<Grocery> groceries;
     private ArrayList<Category> categories;
@@ -56,6 +56,7 @@ public class PricesApp {
      * MODIFIES: this
      * EFFECTS: translates command strings to methods
      */
+    @SuppressWarnings("methodlength")
     private void doCommand(String command) {
         if (command.equals("g")) {
             comNewGrocery();
@@ -199,17 +200,17 @@ public class PricesApp {
      * EFFECTS: initializes ui
      */
     private void initUI() {
-        f = new JFrame("Grocery Prices App");
-        f.setSize(500, 500);
-        f.setLayout(new GridLayout(4, 2, 20, 20));
-        f.setVisible(true);
+        frame = new JFrame("Grocery Prices App");
+        frame.setSize(500, 500);
+        frame.setLayout(new GridLayout(4, 2, 20, 20));
+        frame.setVisible(true);
 
-        f.addWindowListener(new WindowAdapter() {
+        frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent windowEvent) {
                 quit("visual");
             }
         });
-        f.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         initButtons();
     }
@@ -223,42 +224,42 @@ public class PricesApp {
         JButton buttonNewG = new JButton("New Grocery");
         buttonNewG.setActionCommand("g");
         buttonNewG.addActionListener(new ButtonClickListener());
-        f.add(buttonNewG);
+        frame.add(buttonNewG);
 
         JButton buttonViewG = new JButton("View All Groceries");
         buttonViewG.setActionCommand("list");
         buttonViewG.addActionListener(new ButtonClickListener());
-        f.add(buttonViewG);
+        frame.add(buttonViewG);
 
         JButton buttonAddG = new JButton("Add Grocery to Category");
         buttonAddG.setActionCommand("add");
         buttonAddG.addActionListener(new ButtonClickListener());
-        f.add(buttonAddG);
+        frame.add(buttonAddG);
 
         JButton buttonViewC = new JButton("View All Categories");
         buttonViewC.setActionCommand("listc");
         buttonViewC.addActionListener(new ButtonClickListener());
-        f.add(buttonViewC);
+        frame.add(buttonViewC);
 
         JButton buttonAddC = new JButton("New Category");
         buttonAddC.setActionCommand("c");
         buttonAddC.addActionListener(new ButtonClickListener());
-        f.add(buttonAddC);
+        frame.add(buttonAddC);
 
         JButton buttonViewCG = new JButton("View Groceries in a Category");
         buttonViewCG.setActionCommand("listc g");
         buttonViewCG.addActionListener(new ButtonClickListener());
-        f.add(buttonViewCG);
+        frame.add(buttonViewCG);
 
         JButton buttonLoad = new JButton("Load");
         buttonLoad.setActionCommand("load");
         buttonLoad.addActionListener(new ButtonClickListener());
-        f.add(buttonLoad);
+        frame.add(buttonLoad);
 
         JButton buttonSave = new JButton("Save");
         buttonSave.setActionCommand("save");
         buttonSave.addActionListener(new ButtonClickListener());
-        f.add(buttonSave);
+        frame.add(buttonSave);
     }
 
     private class ButtonClickListener implements ActionListener {
@@ -377,23 +378,27 @@ public class PricesApp {
      */
     private void comNewGroceryV() {
         String name = (String) JOptionPane.showInputDialog(
-                f,
-                "Enter grocery name",
-                "Input",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                null,
+                frame, "Enter grocery name", "Input",
+                JOptionPane.PLAIN_MESSAGE, null, null,
                 "1 kg apples");
         String price = (String) JOptionPane.showInputDialog(
-                f,
-                "Enter grocery price",
-                "Input",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                null,
+                frame, "Enter grocery price", "Input",
+                JOptionPane.PLAIN_MESSAGE, null, null,
                 "1.00");
         BigDecimal convert = new BigDecimal(price);
         groceries.add(new Grocery(name, convert));
+
+        JDialog out = new JDialog(frame, "Success!");
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Grocery " + name + " added"));
+        ImageIcon icon = new ImageIcon("data/grocery-icon.jpg");
+        Image image = icon.getImage();
+        Image scaled = image.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
+        icon = new ImageIcon(scaled);
+        panel.add(new JLabel(icon));
+        out.add(panel);
+        out.setSize(400, 400);
+        out.setVisible(true);
     }
 
     /*
@@ -457,14 +462,22 @@ public class PricesApp {
      */
     private void comNewCategoryV() {
         String name = (String) JOptionPane.showInputDialog(
-                f,
-                "Enter category name",
-                "Input",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                null,
+                frame, "Enter category name", "Input",
+                JOptionPane.PLAIN_MESSAGE, null, null,
                 "Fruits");
         categories.add(new Category(name));
+
+        JDialog out = new JDialog(frame, "Success!");
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Category " + name + " added"));
+        ImageIcon icon = new ImageIcon("data/category-icon.png");
+        Image image = icon.getImage();
+        Image scaled = image.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
+        icon = new ImageIcon(scaled);
+        panel.add(new JLabel(icon));
+        out.add(panel);
+        out.setSize(400, 400);
+        out.setVisible(true);
     }
 
     /*
@@ -497,26 +510,19 @@ public class PricesApp {
      * grocery to specified category for visual UI
      */
     private void comAddGroceryV() {
+        JFrame out = new JFrame();
         if (groceries.isEmpty()) {
-            System.out.println("\nNo groceries to add :/");
+            out.add(new JLabel("\nNo groceries to add :/"));
         } else if (categories.isEmpty()) {
-            System.out.println("\nNo categories to add to :/");
+            out.add(new JLabel("\nNo categories to add to :/"));
         } else {
             String grocery = (String) JOptionPane.showInputDialog(
-                    f,
-                    "Enter grocery name",
-                    "Input",
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    null,
+                    frame, "Enter grocery name", "Input",
+                    JOptionPane.PLAIN_MESSAGE, null, null,
                     "1 kg apples");
             String category = (String) JOptionPane.showInputDialog(
-                    f,
-                    "Enter category name",
-                    "Input",
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    null,
+                    frame, "Enter category name", "Input",
+                    JOptionPane.PLAIN_MESSAGE, null, null,
                     "Fruits");
             Grocery g = groceryHandling(grocery);
             Category c = categoryHandling(category);
@@ -541,15 +547,17 @@ public class PricesApp {
      * EFFECTS: lists every grocery and price for visual UI
      */
     private void comListGroceriesV() {
-        JDialog out = new JDialog(f, "Groceries");
+        JDialog out = new JDialog(frame, "Groceries");
+        JPanel panel = new JPanel();
         if (groceries.isEmpty()) {
-            out.add(new JLabel("No groceries :/"));
+            panel.add(new JLabel("No groceries :/"));
         } else {
             for (Grocery g : groceries) {
-                out.add(new JLabel(g.toString()));
+                panel.add(new JLabel(g.toString()));
             }
         }
-        out.setSize(400,400);
+        out.add(panel);
+        out.setSize(400, 400);
         out.setVisible(true);
     }
 
@@ -570,7 +578,7 @@ public class PricesApp {
      * EFFECTS: lists every category for visual UI
      */
     private void comListCategoryV() {
-        JDialog out = new JDialog(f, "Categories");
+        JDialog out = new JDialog(frame, "Categories");
         if (categories.isEmpty()) {
             out.add(new JLabel("No categories :/"));
         } else {
@@ -578,7 +586,7 @@ public class PricesApp {
                 out.add(new JLabel(c.getName()));
             }
         }
-        out.setSize(400,400);
+        out.setSize(400, 400);
         out.setVisible(true);
     }
 
@@ -602,12 +610,12 @@ public class PricesApp {
      * and prices in category for visual UI
      */
     private void comListCategoryGroceriesV() {
-        JDialog out = new JDialog(f, "Category");
+        JDialog out = new JDialog(frame, "Category");
         if (categories.isEmpty()) {
             out.add(new JLabel("\nNo categories :/"));
         } else {
             String category = (String) JOptionPane.showInputDialog(
-                    f,
+                    frame,
                     "Enter category name",
                     "Input",
                     JOptionPane.PLAIN_MESSAGE,
@@ -617,7 +625,7 @@ public class PricesApp {
             Category c = categoryHandling(category);
             out.add(new JLabel(c.toString()));
         }
-        out.setSize(400,400);
+        out.setSize(400, 400);
         out.setVisible(true);
     }
 
