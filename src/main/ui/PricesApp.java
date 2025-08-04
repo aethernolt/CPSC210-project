@@ -9,10 +9,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 // Grocery price logging, categorizing, and consulting application
 public class PricesApp {
     private static final String JSON_SAVE = "./data/save_data.json";
+    private JFrame f;
     private Scanner in;
     private ArrayList<Grocery> groceries;
     private ArrayList<Category> categories;
@@ -153,7 +156,7 @@ public class PricesApp {
      * EFFECTS: initializes ui
      */
     private void initUI() {
-        JFrame f = new JFrame();
+        f = new JFrame("Grocery Prices App");
         f.setSize(500, 600);
         f.setLayout(null);
         f.setVisible(true);

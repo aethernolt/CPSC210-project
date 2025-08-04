@@ -1,6 +1,8 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
@@ -9,10 +11,11 @@ import org.junit.jupiter.api.Test;
 
 public class GroceryTest {
     private Grocery testApple;
+    private BigDecimal priceA;
 
     @BeforeEach
     public void runBefore() {
-        BigDecimal priceA = new BigDecimal("1.50");
+        priceA = new BigDecimal("1.50");
         testApple = new Grocery("1 kg apples", priceA);
     }
 
@@ -52,5 +55,16 @@ public class GroceryTest {
         assertEquals(-1, testApple.comparePrice(priceLow));
         assertEquals(0, testApple.comparePrice(priceEquals));
         assertEquals(1, testApple.comparePrice(priceHigh));
+    }
+
+    @Test
+    void testEquals() {
+        Grocery testApple2 = new Grocery("1 kg apples", priceA);
+        Grocery testBanana = new Grocery("1 bunch bananas", priceA);
+        BigDecimal priceB = new BigDecimal("2.00");
+        Grocery testApple3 = new Grocery("1 kg apples", priceB);
+        assertTrue(testApple.equals(testApple2));
+        assertFalse(testApple.equals(testBanana));
+        assertFalse(testApple.equals(testApple3));
     }
 }
