@@ -579,13 +579,15 @@ public class PricesApp {
      */
     private void comListCategoryV() {
         JDialog out = new JDialog(frame, "Categories");
+        JPanel panel = new JPanel();
         if (categories.isEmpty()) {
-            out.add(new JLabel("No categories :/"));
+            panel.add(new JLabel("No categories :/"));
         } else {
             for (Category c : categories) {
-                out.add(new JLabel(c.getName()));
+                panel.add(new JLabel(c.getName()));
             }
         }
+        out.add(panel);
         out.setSize(400, 400);
         out.setVisible(true);
     }
