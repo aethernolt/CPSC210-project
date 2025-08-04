@@ -44,15 +44,12 @@ public class PricesApp {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
-                checkSaved();
+                quit();
                 live = false;
             } else {
                 doCommand(command);
             }
         }
-
-        System.out.println("\nShutting down :/");
-        System.exit(0);
     }
 
     /*
@@ -80,9 +77,29 @@ public class PricesApp {
             comSave();
         } else if (command.equals("load")) {
             comLoad();
+        } else if (command.equals("gV")) {
+            comNewGroceryV();
+        } else if (command.equals("cV")) {
+            comNewCategoryV();
+        } else if (command.equals("addV")) {
+            comAddGroceryV();
+        } else if (command.equals("listV")) {
+            comListGroceriesV();
+        } else if (command.equals("listcV")) {
+            comListCategoryV();
         } else {
             System.out.println("Invalid command.");
         }
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: runs through the shutdown process
+     */
+    private void quit() {
+        checkSaved();
+        System.out.println("\nShutting down :/");
+        System.exit(0);
     }
 
     /*
@@ -157,29 +174,66 @@ public class PricesApp {
      */
     private void initUI() {
         f = new JFrame("Grocery Prices App");
-        f.setSize(500, 600);
-        f.setLayout(null);
+        f.setSize(500, 500);
+        f.setLayout(new GridLayout(3, 2));
         f.setVisible(true);
 
-        JButton buttonAddG = new JButton("New Grocery");
-        buttonAddG.setBounds(100, 100, 150, 50);
+        f.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent windowEvent) {
+                quit();
+            }
+        });
+
+        initButtons();
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: initializes buttons
+     */
+    private void initButtons() {
+        JButton buttonNewG = new JButton("New Grocery");
+        buttonNewG.setActionCommand("g");
+        buttonNewG.addActionListener(new ButtonClickListener());
+        f.add(buttonNewG);
+
+        JButton buttonAddG = new JButton("Grocery to Category");
+        buttonAddG.setActionCommand("add");
+        buttonAddG.addActionListener(new ButtonClickListener());
         f.add(buttonAddG);
 
         JButton buttonAddC = new JButton("New Category");
-        buttonAddC.setBounds(300, 100, 150, 50);
+        buttonAddC.setActionCommand("c");
+        buttonAddC.addActionListener(new ButtonClickListener());
         f.add(buttonAddC);
 
-        JButton buttonEditG = new JButton("Edit Grocery");
-        buttonEditG.setBounds(100, 175, 150, 50);
-        f.add(buttonEditG);
-
         JButton buttonViewG = new JButton("View All Groceries");
-        buttonViewG.setBounds(100, 250, 150, 50);
+        buttonViewG.setActionCommand("list");
+        buttonViewG.addActionListener(new ButtonClickListener());
         f.add(buttonViewG);
 
         JButton buttonViewC = new JButton("View All Categories");
-        buttonViewC.setBounds(300, 175, 150, 50);
+        buttonViewC.setActionCommand("listc");
+        buttonViewC.addActionListener(new ButtonClickListener());
         f.add(buttonViewC);
+    }
+
+    private class ButtonClickListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+
+            if (command.equals("g")) {
+                doCommand("gV");
+            } else if (command.equals("add")) {
+                doCommand("addV");
+            } else if (command.equals("c")) {
+                doCommand("cV");
+            } else if (command.equals("list")) {
+                doCommand("listV");
+            } else if (command.equals("listc")) {
+                doCommand("listcV");
+            }
+        }
     }
 
     /*
@@ -265,6 +319,32 @@ public class PricesApp {
         String price = in.next();
         groceries.add(new Grocery(name, priceHandling(price)));
         System.out.println("Successfully added \"" + groceries.get(groceries.size() - 1).getName() + "\" :D");
+    }
+    
+    /*
+     * MODIFIES: this
+     * EFFECTS: goes through new grocery creation process and adds created grocery
+     * to ArrayList groceries for visual UI
+     */
+    private void comNewGroceryV() {
+        String name = (String) JOptionPane.showInputDialog(
+                f,
+                "Enter grocery name",
+                "Input",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                "1 kg apples");
+        String price = (String) JOptionPane.showInputDialog(
+                f,
+                "Enter grocery price",
+                "Input",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                "1.00");
+        BigDecimal convert = new BigDecimal(price);
+        groceries.add(new Grocery(name, convert));
     }
 
     /*
