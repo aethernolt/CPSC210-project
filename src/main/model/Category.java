@@ -27,8 +27,6 @@ public class Category implements Writable {
     }
 
     public ArrayList<Grocery> returnGroceries() {
-        Event e = new Event("displayed all groceries in category " + getName());
-        EventLog.getInstance().logEvent(e);
         return groceries;
     }
 
@@ -58,6 +56,8 @@ public class Category implements Writable {
                 out += (", " + g.toString());
             }
         }
+        Event e = new Event("displayed all groceries in category " + getName());
+        EventLog.getInstance().logEvent(e);
         return out;
     }
 

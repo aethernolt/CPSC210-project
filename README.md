@@ -23,3 +23,28 @@ The primary purpose of this project (built for CPSC 210 at UBC) is to allow user
 - You can locate my visual component by adding either a grocery or category item successfully
 - You can save the state of my application by clicking the save button or clicking yes when quitting and being prompted for having unsaved data
 - You can reload the state of my application by clicking the load button
+
+## Phase 4: Task 2
+currently supported logged events are:
+- new grocery created
+- grocery price edited
+- new category created
+- grocery added to category
+- viewed groceries in a category
+
+example of log output:
+
+> Thu Aug 07 05:50:24 PDT 2025  
+created grocery 1 kg apples  
+Thu Aug 07 05:50:32 PDT 2025  
+created grocery 1 kg bananas  
+Thu Aug 07 05:50:35 PDT 2025  
+created category Fruits  
+Thu Aug 07 05:50:38 PDT 2025  
+added grocery named 1 kg apples to category Fruits  
+Thu Aug 07 05:50:43 PDT 2025  
+added grocery named 1 kg bananas to category Fruits  
+Thu Aug 07 05:50:51 PDT 2025  
+grocery 1 kg bananas price changed to 2.00  
+Thu Aug 07 05:50:55 PDT 2025  
+displayed all groceries in category Fruits  
