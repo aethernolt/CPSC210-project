@@ -18,6 +18,8 @@ public class Category implements Writable {
     public Category(String name) {
         this.name = name;
         groceries = new ArrayList<Grocery>();
+        Event e = new Event("created category " + getName());
+        EventLog.getInstance().logEvent(e);
     }
 
     public String getName() {
@@ -25,6 +27,8 @@ public class Category implements Writable {
     }
 
     public ArrayList<Grocery> returnGroceries() {
+        Event e = new Event("displayed all groceries in category " + getName());
+        EventLog.getInstance().logEvent(e);
         return groceries;
     }
 
@@ -34,6 +38,8 @@ public class Category implements Writable {
      */
     public void addItem(Grocery g) {
         groceries.add(g);
+        Event e = new Event("added grocery named " + g.getName() + " to category " + getName());
+        EventLog.getInstance().logEvent(e);
     }
 
     /*

@@ -106,7 +106,7 @@ public class PricesApp {
             checkSavedV();
         }
     }
-
+    
     /*
      * EFFECTS: checks if user has saved their data before quitting, prompts to if
      * not
@@ -128,6 +128,7 @@ public class PricesApp {
                 }
             }
         }
+        eventLogPrint();
         System.out.println("\nShutting down :/");
         System.exit(0);
     }
@@ -143,12 +144,24 @@ public class PricesApp {
             int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 comSave();
+                eventLogPrint();
                 System.exit(0);
             } else {
+                eventLogPrint();
                 System.exit(0);
             }
         } else {
+            eventLogPrint();
             System.exit(0);
+        }
+    }
+
+    /*
+     * EFFECTS: prints event logs to console
+     */
+    private void eventLogPrint() {
+        for (model.Event e : EventLog.getInstance()) {
+            System.out.println(e.toString());
         }
     }
 

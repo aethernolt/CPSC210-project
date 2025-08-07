@@ -12,13 +12,14 @@ public class Grocery implements Writable {
 
     /*
      * REQUIRES: price > 0 and is valid dollar format, name is unique from all
-     * previously provided grocery
-     * names
+     * previously provided grocery names
      * EFFECTS: sets name to given name and price to given price
      */
     public Grocery(String name, BigDecimal price) {
         this.name = name;
         this.price = price;
+        Event e = new Event("created grocery " + getName());
+        EventLog.getInstance().logEvent(e);
     }
 
     public BigDecimal getPrice() {
@@ -36,6 +37,8 @@ public class Grocery implements Writable {
      */
     public void editPrice(BigDecimal newPrice) {
         price = newPrice;
+        Event e = new Event("grocery " + getName() + " price changed to " + getPrice());
+        EventLog.getInstance().logEvent(e);
     }
 
     /*
