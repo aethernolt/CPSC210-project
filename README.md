@@ -48,3 +48,8 @@ Thu Aug 07 05:50:51 PDT 2025
 grocery 1 kg bananas price changed to 2.00  
 Thu Aug 07 05:50:55 PDT 2025  
 displayed all groceries in category Fruits  
+
+# Phase 4: Task 3
+Particularly for saving to JSON, the decision to have grocery objects not have category tags attached to them caused some headache. This is because in order to read what items were in each category, my JSON file duplicated the data of every grocery item into each category's JSON save. Instead, I could've refactored how my data was structured in such a way that each grocery item had an array parameter of category's it was included in and changed category's to look through all groceries for those that referenced being contained within itself.
+
+My PricesApp class also suffers from having too many methods in it. Instead, I could've split up the visual and console ui into seperate classes while inheriting some of the generic save/load/create functionality to both classes.
