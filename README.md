@@ -1,5 +1,5 @@
-# Grocery Price Targeter
-Particularly given the rising cost of living, one of the parts I find annoying about grocery shopping is having to determine if certain items are worth buying in the moment at one store or if I should wait and purchase them elsewhere. Having a centralized database of acceptable prices for each item to compare current shelf prices and deals to would make this process far simpler than trying to recall how much I typically pay. Such a system could be helpful to anyone trying to optimize spending on groceries.
+# THIS IS A COPY OF A PROJECT BUILT FOR CPSC 210 @ UBC
+Some functionality is haphazard and built around its requirements.
 
 ## Functionality
 The primary purpose of this project (built for CPSC 210 at UBC) is to allow users to add **grocery items** and their **target prices** for later reference. Users should be able to not only view prices for *specific* grocery items, but add existing grocery items to **categories** and view prices across the entire category. Users should also be able to provide the price of a grocery item and have the program show its relation to the target price.
